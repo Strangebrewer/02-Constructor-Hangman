@@ -39,14 +39,16 @@ function newGuess() {
 
 function runPrompt() {
   prompt.get(schema, function (error, response) {
+    if (error) return console.log("\n\nThanks for playing, see you later!");
+    var letta = response.letter;
 
     //  if guess is a repeat for this word, display that and rerun the prompt
-    if (lettersGuessed.includes(response.letter)) {
+    if (lettersGuessed.includes(letta)) {
       console.log("You already guessed that letter!");
       return runPrompt();
     }
     else {
-      lettersGuessed.push(response.letter);
+      lettersGuessed.push(letta);
 
       //  if the guess is correct, display 'correct' and run the guess function (property of the Letter constructor) by running the checkGuess function (property of the Word constructor)
       if (gameWord.word.includes(response.letter)) {
